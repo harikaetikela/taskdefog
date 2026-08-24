@@ -1,0 +1,15 @@
+{
+  "name": "taskdefog",
+  "version": "1.0.0",
+  "description": "Defog raw or vague tasks using Google's Gemini models and a premium web UI.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.17.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}

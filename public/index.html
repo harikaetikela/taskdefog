@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskDefog - Clarify & Break Down Vague Tasks</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- CSS -->
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="background-glows">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+  </div>
+
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo">
+        <span class="logo-icon">🌫️</span>
+        <h1 id="main-title">TaskDefog</h1>
+      </div>
+      <p class="subtitle">Paste or type your tasks below—work deliverables, life admin, projects, or errands. TaskDefog extracts your top 3 daily priorities, provides a grounding reality check, and safely parks the rest.</p>
+    </header>
+
+    <main class="main-content">
+      <!-- Input Panel -->
+      <section class="panel input-panel" id="input-section">
+        <h2>Unload Your Tasks</h2>
+        <p class="panel-desc">Don't worry about formatting. Write or paste everything—work, personal projects, errands, whatever's on your plate.</p>
+        
+        <form id="defog-form">
+          <div class="textarea-container">
+            <textarea 
+              id="task-input" 
+              placeholder="Example: Study for midterms, finish project report, schedule doctor appointment, reply to emails, meal prep"
+              required
+            ></textarea>
+            <div class="char-counter"><span id="char-count">0</span> characters</div>
+          </div>
+          
+          <button type="submit" id="submit-btn">
+            <span class="btn-text">Defog Task</span>
+            <span class="loader"></span>
+          </button>
+        </form>
+
+        <div class="quick-examples">
+          <span>Try an example:</span>
+          <button type="button" class="example-chip" data-text="Study for midterms, finish project report, schedule doctor appointment, reply to emails, meal prep">Sample To-Do List</button>
+        </div>
+      </section>
+
+      <!-- Output Panel -->
+      <section class="panel output-panel empty" id="output-section">
+        <!-- Empty State -->
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon">✨</div>
+          <h3>Your Defogged Task Roadmap Appears Here</h3>
+          <p>Input a task on the left and click "Defog Task" to generate a detailed breakdown, ambiguity assessment, and technical suggestions.</p>
+        </div>
+
+        <!-- Result Content -->
+        <div class="result-content hidden" id="result-content">
+          <!-- Motivational Line -->
+          <div class="motivational-line">
+            You've got this! 💪 Break it down, focus on Top 3, and crush your day.
+          </div>
+
+          <!-- Reality Check Banner -->
+          <div class="reality-check-banner hidden" id="reality-check-banner">
+            <span class="reality-check-icon">⚠️</span>
+            <div class="reality-check-text" id="reality-check-text"></div>
+          </div>
+
+          <!-- Top 3 Today -->
+          <div class="result-card top3-card">
+            <div class="card-header">
+              <h4>🎯 Top 3 Today</h4>
+              <div class="card-actions">
+                <button type="button" class="mute-btn" id="global-mute-btn" title="Toggle sound alerts">
+                  <span class="mute-icon">🔊</span> Sounds: On
+                </button>
+                <button type="button" class="copy-btn" id="copy-report-btn" title="Copy report to clipboard">
+                  <span class="copy-icon">📋</span> Copy
+                </button>
+              </div>
+            </div>
+            <ul class="task-checklist" id="top3-list">
+              <!-- Top 3 items will be injected here -->
+          </div>
+
+          <!-- Surprise Progress Celebration Area -->
+          <div class="surprise-container">
+            <button type="button" class="surprise-btn" id="surprise-toggle-btn">
+              Surprise 🎉
+            </button>
+            
+            <div class="surprise-panel hidden" id="surprise-panel">
+              <div class="celebration-header">
+                <h4>✨ Daily Progress Arena</h4>
+                <div class="mode-toggles">
+                  <button type="button" class="mode-toggle-btn" id="mode-flower-btn">🌸 Flower Mode</button>
+                  <button type="button" class="mode-toggle-btn" id="mode-car-btn">🏎️ Car Mode</button>
+                </div>
+              </div>
+              
+              <div class="celebration-arena">
+                <div class="race-goal-banner hidden" id="race-goal-banner">🏁 GOAL!</div>
+                <!-- Flower Mode Container -->
+                <div class="arena-display" id="flower-display">
+                  <!-- SVG structure will be injected here dynamically -->
+                </div>
+                
+                <!-- Car Mode Container -->
+                <div class="arena-display hidden" id="car-display">
+                  <!-- SVG structure will be injected here dynamically -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Three Columns Grid -->
+          <div class="columns-grid">
+            <!-- Column 1: Quick Wins -->
+            <div class="result-column">
+              <div class="column-header quick-wins-header">
+                <h4>⚡ Quick Wins (&lt;10min)</h4>
+              </div>
+              <ul class="column-list" id="quick-wins-list">
+                <!-- Quick wins will be injected here -->
+              </ul>
+            </div>
+
+            <!-- Column 2: This Week -->
+            <div class="result-column">
+              <div class="column-header this-week-header">
+                <h4>📅 This Week</h4>
+              </div>
+              <ul class="column-list" id="this-week-list">
+                <!-- This Week items will be injected here -->
+              </ul>
+            </div>
+
+            <!-- Column 3: Can Wait -->
+            <div class="result-column">
+              <div class="column-header can-wait-header">
+                <h4>📥 Can Wait</h4>
+              </div>
+              <ul class="column-list" id="can-wait-list">
+                <!-- Can Wait items will be injected here -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- Summary at bottom -->
+          <div class="result-section summary-section">
+            <h3>Daily Summary</h3>
+            <p id="result-summary" class="summary-text"></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>TaskDefog • Protect mental energy, reduce cognitive overload, restore daily focus</p>
+    </footer>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>
